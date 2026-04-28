@@ -8,7 +8,6 @@ class Gender(str, Enum):
     male = "Male"
     female = "Female"
 
-
 class ReportType(str, Enum):
     blood_test = "Blood Test"
     urine_test = "Urine Test"

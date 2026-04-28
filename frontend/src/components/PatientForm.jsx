@@ -45,7 +45,6 @@ export default function PatientForm({ onCreated }) {
         <select className="input" value={form.gender} onChange={(e) => setForm({ ...form, gender: e.target.value })}>
           <option>Male</option>
           <option>Female</option>
-          <option>Other</option>
         </select>
       </Field>
       <Field label="Contact" error={errors.contact_number}>
