@@ -33,8 +33,14 @@ export default function Reports() {
           <option>Abnormal</option>
           <option>Pending</option>
         </select>
-        <input className="input" type="date" value={filters.start_date} onChange={(e) => update("start_date", e.target.value)} />
-        <input className="input" type="date" value={filters.end_date} onChange={(e) => update("end_date", e.target.value)} />
+        <label className="space-y-1 text-sm font-semibold text-slate-700">
+          <span>Start Date</span>
+          <input className="input" type="date" value={filters.start_date} onChange={(e) => update("start_date", e.target.value)} />
+        </label>
+        <label className="space-y-1 text-sm font-semibold text-slate-700">
+          <span>End Date</span>
+          <input className="input" type="date" value={filters.end_date} onChange={(e) => update("end_date", e.target.value)} />
+        </label>
       </div>
 
       <div className="rounded-md border border-slate-200 bg-white">
