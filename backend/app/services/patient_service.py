@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session, selectinload
 
@@ -42,3 +44,11 @@ def get_patient(db: Session, patient_pk: int) -> models.Patient | None:
         .options(selectinload(models.Patient.reports))
         .where(models.Patient.id == patient_pk)
     ).scalars().first()
+
+
+def delete_patient(db: Session, patient: models.Patient) -> None:
+    for report in patient.reports:
+        if report.file_path:
+            Path(report.file_path).unlink(missing_ok=True)
+    db.delete(patient)
+    db.commit()

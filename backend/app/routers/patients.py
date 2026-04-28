@@ -34,3 +34,12 @@ def get_patient(patient_pk: int, db: Session = Depends(get_db)):
         created_at=patient.created_at,
         reports=reports,
     )
+
+
+@router.delete("/{patient_pk}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_patient(patient_pk: int, db: Session = Depends(get_db)):
+    patient = patient_service.get_patient(db, patient_pk)
+    if patient is None:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    patient_service.delete_patient(db, patient)
+    return None

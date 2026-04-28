@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { Trash2 } from "lucide-react";
+import { api } from "../api.js";
 import PatientForm from "../components/PatientForm.jsx";
 import { useLab } from "../state/LabContext.jsx";
 
@@ -10,6 +12,12 @@ export default function Patients() {
       patient.name.toLowerCase().includes(term) ||
       patient.patient_id.toLowerCase().includes(term)
   );
+
+  const removePatient = async (patient) => {
+    if (!confirm(`Delete patient ${patient.name} and all associated reports?`)) return;
+    await api.deletePatient(patient.id);
+    await refresh();
+  };
 
   return (
     <section className="space-y-6">
@@ -35,6 +43,7 @@ export default function Patients() {
                 <th>Gender</th>
                 <th>Contact</th>
                 <th>Profile</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -46,10 +55,19 @@ export default function Patients() {
                   <td>{patient.gender}</td>
                   <td>{patient.contact_number}</td>
                   <td><Link className="link" to={`/patients/${patient.id}`}>View</Link></td>
+                  <td>
+                    <button
+                      className="icon-button text-alert"
+                      onClick={() => removePatient(patient)}
+                      title="Delete patient"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </td>
                 </tr>
               ))}
               {!loading && filtered.length === 0 && (
-                <tr><td colSpan="6" className="text-center text-slate-500">No patients found.</td></tr>
+                <tr><td colSpan="7" className="text-center text-slate-500">No patients found.</td></tr>
               )}
             </tbody>
           </table>

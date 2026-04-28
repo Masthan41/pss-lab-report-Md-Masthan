@@ -36,6 +36,7 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     }),
+  deletePatient: (patientId) => request(`/patients/${patientId}`, { method: "DELETE" }),
   reports: (params = {}) => {
     const search = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
