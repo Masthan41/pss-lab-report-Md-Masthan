@@ -39,7 +39,7 @@ export const api = {
   deletePatient: (patientId) => request(`/patients/${patientId}`, { method: "DELETE" }),
   reports: (params = {}) => {
     const search = new URLSearchParams();
-    Object.entries(params).forEach(([ key, value ]) => {
+    Object.entries(params).forEach(([key, value]) => {
       if (value) search.set(key, value);
     });
     return request(`/reports${search.toString() ? `?${search}` : ""}`);
