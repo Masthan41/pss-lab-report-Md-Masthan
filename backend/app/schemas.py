@@ -7,7 +7,6 @@ from pydantic import BaseModel, Field, field_validator
 class Gender(str, Enum):
     male = "Male"
     female = "Female"
-    other = "Other"
 
 
 class ReportType(str, Enum):
